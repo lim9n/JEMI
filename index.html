@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For A Judge (Soon)</title>
+
+<!-- 🌸 Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+/* BODY */
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Poppins', sans-serif;
+  overflow-x:hidden;
+  background:linear-gradient(270deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
+  background-size:800% 800%;
+  animation:gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* container */
+.container{
+  display:flex;
+  gap:40px;
+  width:80%;
+  max-width:1100px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* card */
+.card,.textbox{
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.25);
+  padding:25px;
+  flex:1 1 400px;
+  max-width:500px;
+  animation:fadeUp 1.5s ease;
+}
+
+/* animation */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* 📸 ORIGINAL PHOTO STYLE (RECTANGLE) */
+.photo{
+  width:100%;
+  height:250px;
+  border-radius:12px;
+  background:url("images/index.jpeg") center/cover no-repeat;
+  border:6px solid #ffd1dc;
+  margin-bottom:15px;
+}
+
+/* headings */
+h1{
+  font-family:'Dancing Script', cursive;
+  color:#ff4d6d;
+  font-size:2.2rem;
+  text-align:center;
+}
+
+h2{
+  font-family:'Dancing Script', cursive;
+  color:#ff6f91;
+  text-align:center;
+}
+
+/* text */
+p{
+  font-size:1rem;
+  line-height:1.6rem;
+  color:#444;
+}
+
+/* ✨ poetic text */
+.textbox p{
+  font-family:'Dancing Script', cursive;
+  font-size:1.2rem;
+  text-align:center;
+  color:#5a3e4d;
+}
+
+/* button */
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(45deg,#ff4d6d,#ff9a9e);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+  display:block;
+  margin:15px auto 0;
+  box-shadow:0 5px 15px rgba(255,77,109,0.4);
+}
+
+button:hover{
+  transform:scale(1.08);
+}
+
+/* textbox hidden */
+.textbox{
+  opacity:0;
+  transform:translateY(30px);
+  pointer-events:none;
+  transition:0.8s ease;
+  box-shadow:0 0 40px rgba(255,182,193,0.5);
+}
+
+
+
+.btn{
+  display:inline-block;
+  padding:14px 30px;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  color:white;
+  font-size:16px;
+  text-decoration:none;
+  font-family:cursive;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 12px 25px rgba(0,0,0,0.3);
+}
+
+.textbox.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+/* petals */
+.petal{
+  position:absolute;
+  top:-10px;
+  font-size:20px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+  }
+}
+
+/* responsive */
+@media (max-width:768px){
+  .container{
+    flex-direction:column;
+    width:90%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="Music/index.mp3" type="audio/mp3">
+</audio>
+
+<div class="container">
+
+  <div class="card">
+
+    <div class="photo"></div>
+
+    <h1>Hey!! JEMIIII 🌸</h1>
+
+    <p>
+      Among the quiet little wonders of this world, I exist as something small…
+      yet from this small existence, a little gift has found its way to you 💫
+    </p>
+
+    <br>
+        <br>
+            <br>
+                <br>
+                    <br>
+    <button onclick="startExperience()">Quiet Wonders 🌸</button>
+
+  </div>
+
+  <div id="detailSection" class="textbox" style="display:none">
+
+    <h2>A Page Written for  you 💫</h2>
+
+    <p>
+      She moves through the world like a quiet melody, soft yet impossible to forget. There’s a grace in her every gesture, a warmth in the light she carries, that makes the simplest moments feel touched by something rare. Even in silence, her presence lingers—like the scent of rain on dry earth, like sunlight slipping through morning mist. She is a gentle wonder, a quiet spark of beauty that doesn’t demand attention, yet leaves the heart fuller just by existing. 💫
+    </p>
+
+    <p><br><br><br><br><br></p>
+
+    <p>
+      And in the quiet of the world, she lingers like a soft whisper, a gentle light that touches everything around her, leaving behind a calm warmth, a delicate echo of beauty that stays long after the moment has passed. 💫
+    </p>
+    <br>
+
+  <a href="surprise.html" class="btn">
+  Step Inside ✨
+  </a>
+
+  </div>
+
+</div>
+
+<script>
+
+function startExperience(){
+  const detail = document.getElementById("detailSection");
+  detail.style.display="block";
+  detail.classList.add("show");
+  detail.scrollIntoView({behavior:"smooth",block:"center"});
+
+  const music = document.getElementById("bgMusic");
+  music.play();
+}
+
+/* petals */
+function createPetal(){
+  let petal=document.createElement("div");
+  petal.className="petal";
+  petal.innerHTML="🌸";
+
+  petal.style.left=Math.random()*100+"vw";
+  petal.style.animationDuration=(5+Math.random()*5)+"s";
+
+  document.body.appendChild(petal);
+
+  setTimeout(()=>petal.remove(),10000);
+}
+
+setInterval(createPetal,300);
+
+</script>
+
+</body>
+</html>

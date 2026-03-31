@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Card</title>
+<!-- FUNKY FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  background: linear-gradient(135deg,#fdbf00,#ff9a9e);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+  font-family:'Baloo 2', cursive;
+}
+
+.card {
+  width:90%;
+  max-width:700px;
+  aspect-ratio:3/4;
+  position:relative;
+  box-shadow:0 15px 30px rgba(0,0,0,0.25);
+  border-radius:15px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+/* COVER */
+.cover {
+  width:100%;
+  height:100%;
+  background:linear-gradient(to bottom,#ff9a9e,#fad0c4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  position:absolute;
+  z-index:2;
+  text-align:center;
+  transition:0.5s;
+}
+.cover h1 {
+  color: blue;
+  font-size:2.5rem;
+  margin-bottom:20px;
+  text-shadow: 2px 2px #ff4d6d;
+}
+.cover button {
+  padding:12px 25px;
+  border:none;
+  border-radius:8px;
+  background:#ff4d6d;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  font-weight:bold;
+  box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* CONTENT */
+.content {
+  display:flex;
+  flex:1;
+  opacity:0;
+  transform:scale(0.9);
+  transition:all 0.8s ease;
+  flex-direction:row;
+}
+
+/* LEFT SIDE */
+.left-side {
+  width:50%;
+  background:linear-gradient(to bottom,#fff,#ffe6e6);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  position:relative;
+}
+.circle-img {
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  overflow:hidden;
+  margin-bottom:20px;
+  border:4px solid #714dff;
+}
+.circle-img img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.countdown {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.countdown-item {
+  background:#ff4d6d;
+  color:#fff;
+  width:60px;
+  height:60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:1rem;
+  perspective:600px;
+  position:relative;
+  overflow:hidden;
+}
+.countdown-number {
+  display:block;
+  transform-origin:top;
+  transition: transform 0.5s ease-in-out;
+}
+.countdown-number.flip {
+  transform: rotateX(-180deg);
+}
+.countdown-label {
+  font-size:0.7rem;
+  margin-top:2px;
+}
+
+/* RIGHT SIDE */
+.right-side {
+  width:50%;
+  background:linear-gradient(to bottom,#fff8e6,#fff);
+  padding:40px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+}
+.right-side p {
+  font-size:18px;
+  margin-bottom:30px;
+  color:#333;
+  text-shadow:1px 1px #ff4d6d;
+}
+button#nextBtn {
+  padding:12px 25px;
+  border:none;
+  border-radius:8px;
+  background:#ff4d6d;
+  color:#fff;
+  font-size:16px;
+  cursor:not-allowed;
+  opacity:0.6;
+  font-weight:bold;
+}
+button#nextBtn.active {
+  cursor:pointer;
+  opacity:1;
+}
+
+/* CONFETTI */
+.confetti {
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:red;
+  top:0;
+  left:0;
+  pointer-events:none;
+  opacity:0;
+  border-radius:50%;
+}
+
+/* Responsive */
+@media (max-width:600px){
+  .content{flex-direction:column;}
+  .left-side,.right-side{width:100%; height:50%;}
+  .countdown-item{width:50px; height:50px; font-size:0.9rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- MUSIC -->
+<audio id="music" src="Music/surprise.mp3" loop></audio>
+
+<div class="card">
+
+  <!-- COVER -->
+  <div class="cover" id="cover">
+    <h1>A little secret is hiding here… Are you ready? 🎉</h1>
+    <button id="openBtn">Open</button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content" id="content">
+
+    <!-- LEFT SIDE -->
+    <div class="left-side">
+      <div class="circle-img">
+        <img src="images/crush.jpeg" alt="Birthday Pic">
+      </div>
+      <p>Let's count</p>
+      <div class="countdown">
+        <div class="countdown-item"><span class="countdown-number" id="days">0</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-item"><span class="countdown-number" id="hours">0</span><span class="countdown-label">Hours</span></div>
+        <div class="countdown-item"><span class="countdown-number" id="minutes">0</span><span class="countdown-label">Minutes</span></div>
+        <div class="countdown-item"><span class="countdown-number" id="seconds">0</span><span class="countdown-label">Seconds</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-side">
+      <p id="teaser">A little magic is waiting for you ✨…</p>
+      <button id="nextBtn" disabled>Next 🎁</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const cover = document.getElementById("cover");
+const openBtn = document.getElementById("openBtn");
+const content = document.getElementById("content");
+const nextBtn = document.getElementById("nextBtn");
+const music = document.getElementById("music");
+const teaserEl = document.getElementById("teaser");
+
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
+
+let prev = {days:0,hours:0,minutes:0,seconds:0};
+let targetDate = new Date("April 18, 2026 00:00:02");
+let timerInterval;
+
+// COUNTDOWN FUNCTION
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if(distance <= 0){
+    [daysEl,hoursEl,minutesEl,secondsEl].forEach(e => e.innerText = 0);
+    teaserEl.innerText = "🎉 It's your birthday today! Open your surprise! 🎁";
+    nextBtn.disabled = false;
+    nextBtn.classList.add("active");
+    clearInterval(timerInterval);
+    return;
+  }
+
+  const d = Math.floor(distance / (1000*60*60*24));
+  const h = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const s = Math.floor((distance % (1000*60)) / 1000);
+
+  const current = {days:d,hours:h,minutes:m,seconds:s};
+
+  for(let key in current){
+    const el = document.getElementById(key);
+    if(current[key] !== prev[key]){
+      el.classList.add("flip");
+      setTimeout(() => el.classList.remove("flip"), 500);
+      el.innerText = current[key];
+    }
+  }
+  prev = current;
+}
+
+// RANDOM TEASER
+const teasers = [
+  " Shhh 🤫… Not yet! But the surprise is closer than you think ✨ ",
+  "Something special is brewing… can you guess what? 🎁",
+  "Tick-tock…magic is almost here ⏳💌",
+  "Shhh… A little surprise is on its way! 🤫✨",
+"Something magical is hiding behind this card… 🎉",
+"Tick-tock… Can you feel the excitement? ⏳💌",
+"A little celebration is waiting just for you! 🎂",
+"Patience… the magic is about to appear! ✨🎁",
+"Can you hear the confetti calling your name? 🎊",
+"Your special moment is almost here… 🌟",
+"A tiny secret with lots of smiles awaits! 😄🎈",
+"One more step and the surprise is revealed! 🎀"
+];
+teaserEl.innerText = teasers[Math.floor(Math.random()*teasers.length)];
+
+// CONFETTI
+function createConfetti(){
+  for(let i=0;i<100;i++){
+    const conf = document.createElement("div");
+    conf.classList.add("confetti");
+    conf.style.background=`hsl(${Math.random()*360}, 100%, 50%)`;
+    conf.style.left=`${Math.random()*100}%`;
+    conf.style.top=`${Math.random()*-100}%`;
+    conf.style.width=`${5+Math.random()*5}px`;
+    conf.style.height=`${5+Math.random()*5}px`;
+    document.body.appendChild(conf);
+    animateConfetti(conf);
+  }
+}
+function animateConfetti(conf){
+  let x = parseFloat(conf.style.left);
+  let y = parseFloat(conf.style.top);
+  let speedX = (Math.random()-0.5)*5;
+  let speedY = 2+Math.random()*5;
+  conf.style.opacity = 1;
+  function fall(){
+    y+=speedY;
+    x+=speedX;
+    conf.style.top=y+"px";
+    conf.style.left=x+"%";
+    if(y<window.innerHeight){
+      requestAnimationFrame(fall);
+    }else{
+      conf.remove();
+    }
+  }
+  fall();
+}
+
+// OPEN CARD
+openBtn.addEventListener("click",()=>{
+  cover.style.display="none";
+  content.style.opacity="1";
+  content.style.transform="scale(1)";
+  music.play();
+  createConfetti();
+  updateCountdown();
+  timerInterval = setInterval(updateCountdown,1000);
+});
+
+// NEXT BUTTON
+nextBtn.addEventListener("click",()=>{
+  if(!nextBtn.disabled) window.location.href="final.html";
+});
+</script>
+</body>
+</html>
